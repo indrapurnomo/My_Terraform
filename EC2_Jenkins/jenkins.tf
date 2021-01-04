@@ -15,13 +15,22 @@ locals {
   user_data = <<EOF
 #!/bin/bash
 sleep 30s
+sudo apt-get -y update && apt-get -y install python && apt-get -y install python-pip
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get update -y
-sudo apt-get install python -y
+apt-get install docker-ce docker-ce-cli containerd.io -y
+systemctl daemon-reload
+systemctl enable docker.service
+systemctl restart docker
+usermod -aG docker ubuntu
+sudo apt-get update -y
 sudo apt install openjdk-8-jdk -y
 wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update
 sudo apt-get install jenkins -y
+usermod -aG docker jenkins
 EOF
 }
 
