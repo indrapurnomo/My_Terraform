@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source = "hashicorp/aws"
+      source  = "hashicorp/aws"
       version = "3.13.0"
     }
   }
@@ -13,9 +13,9 @@ provider "aws" {
 
 #############################################################
 resource "aws_vpc" "my_vpc" { 
-  cidr_block			= "11.0.0.0/16"
+  cidr_block			      = "11.0.0.0/16"
   instance_tenancy  		= "default"
-  enable_dns_hostnames		= "true"
+  enable_dns_hostnames	= "true"
   enable_dns_support		= "true"
    
   tags = {
@@ -32,21 +32,21 @@ resource "aws_internet_gateway" "gateway" {
 } 
 
 resource "aws_route_table" "route_table" {
-  vpc_id 	  		= aws_vpc.my_vpc.id
+  vpc_id 	  	 = aws_vpc.my_vpc.id
   route {
-    cidr_block  = "0.0.0.0/0"
-    gateway_id  = aws_internet_gateway.gateway.id
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gateway.id
   }
   tags = {
-      Name      = "rtb-my_vpc"
+      Name     = "rtb-my_vpc"
   }
 }
 
 resource "aws_subnet" "subnet_1" {
-  vpc_id      		        	= aws_vpc.my_vpc.id
-  cidr_block			          = "11.0.11.0/24"
-  availability_zone	      	= "us-east-2a"
-  map_public_ip_on_launch 	= "true"
+  vpc_id      		        = aws_vpc.my_vpc.id
+  cidr_block			        = "11.0.11.0/24"
+  availability_zone	      = "us-east-2a"
+  map_public_ip_on_launch = "true"
 
   tags = {
       Name = "pubic-sub1"
@@ -54,10 +54,10 @@ resource "aws_subnet" "subnet_1" {
 }
 
 resource "aws_subnet" "subnet_2" {
-  vpc_id      		        	= aws_vpc.my_vpc.id
-  cidr_block		          	= "11.0.12.0/24"
-  availability_zone	      	= "us-east-2b"
-  map_public_ip_on_launch 	= "true"
+  vpc_id      		        = aws_vpc.my_vpc.id
+  cidr_block		          = "11.0.12.0/24"
+  availability_zone	      = "us-east-2b"
+  map_public_ip_on_launch = "true"
 
   tags = {
       Name = "public-sub2"
@@ -65,10 +65,10 @@ resource "aws_subnet" "subnet_2" {
 }
 
 resource "aws_subnet" "subnet_3" {
-  vpc_id      		         	= aws_vpc.my_vpc.id
-  cidr_block			          = "11.0.13.0/24"
-  availability_zone		      = "us-east-2c"
-  map_public_ip_on_launch 	= "true"
+  vpc_id      		         = aws_vpc.my_vpc.id
+  cidr_block			         = "11.0.13.0/24"
+  availability_zone		     = "us-east-2c"
+  map_public_ip_on_launch  = "true"
 
   tags = {
       Name = "public-sub3"
