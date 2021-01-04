@@ -56,5 +56,5 @@ resource "aws_instance" "test-instance" {
            volume_size           	  = 10 
            volume_type           	  = "gp2" 
         }
-   user_data_base64			            = base64encode(local.user_data)
+   user_data_base64                 = base64encode(local.user_data)
 }
